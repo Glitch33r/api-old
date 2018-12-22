@@ -26,6 +26,25 @@ class VendorRepository extends \Doctrine\ORM\EntityRepository
             ->where('ph.covers IS NOT EMPTY')
             ->orderBy('v.title','ASC')
             ->addOrderBy('ph.priority','DESC')
+//            ->andWhere('ph. LIKE "Apple" ')
+            ->getQuery()->getArrayResult();
+//        return $this->createQueryBuilder('v')
+//            ->select('v,ph')
+//            ->leftJoin('v.phones','ph')
+//            ->where('ph.covers IS NOT EMPTY')->getQuery()->getArrayResult();
+////        return $this->createQueryBuilder('v')->getQuery()->getArrayResult();
+
+    }
+
+    public function getArr_2() {
+
+        return $this->createQueryBuilder('v')
+            ->select('v.id, v.title')
+//            ->leftJoin('v.phones','ph')
+//            ->where('ph.covers IS NOT EMPTY')
+            ->orderBy('v.title','ASC')
+//            ->addOrderBy('ph.priority','DESC')
+//            ->andWhere('ph. LIKE "Apple" ')
             ->getQuery()->getArrayResult();
 //        return $this->createQueryBuilder('v')
 //            ->select('v,ph')

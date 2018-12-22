@@ -49,6 +49,16 @@ class TransparentImage
      * @var phoneBackground title
      */
     private $title;
+
+    /**
+     * @param phoneBackground $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+
     public function getTitle()
     {
         return $this->getPhoneBackground()->getTitle();

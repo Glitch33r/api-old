@@ -12,7 +12,13 @@ class PhoneRepository extends \Doctrine\ORM\EntityRepository
 {
 
     public function getArr() {
-        return $this->createQueryBuilder('v')->getQuery()->getArrayResult();
+        return $this->createQueryBuilder('v')
+            ->leftJoin('v.vendor','phone')
+            ->leftJoin('v.covers','covers')
+            ->leftJoin('v.products','products')
+            ->select('v, partial phone.{id,title}, partial covers.{id, title}, partial products.{id, title}')
+            ->getQuery()
+            ->getArrayResult();
 
     }
 

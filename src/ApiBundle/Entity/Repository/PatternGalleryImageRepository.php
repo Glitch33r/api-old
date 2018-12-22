@@ -10,4 +10,11 @@ namespace ApiBundle\Entity\Repository;
  */
 class PatternGalleryImageRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getArr() {
+        return $this->createQueryBuilder('v')
+            ->leftJoin('v.pattern', 'pattern')
+            ->select('v, partial pattern.{id, title}')
+            ->getQuery()
+            ->getArrayResult();
+    }
 }

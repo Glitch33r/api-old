@@ -10,4 +10,17 @@ namespace ApiBundle\Entity\Repository;
  */
 class PhoneCoverTypeDescriptionRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function getArr() {
+        return $this->createQueryBuilder('v')
+            ->leftJoin('v.phone','phone')
+//            ->leftJoin('v.pattern','pattern')
+//            ->leftJoin('v.transparentImages','transparentImages')
+            ->leftJoin('v.coverType','coverType')
+            ->select('v, partial phone.{id,title}, partial coverType.{id, title}')
+            ->getQuery()
+//            ->setMaxResults(100)
+            ->getArrayResult();
+
+    }
 }

@@ -21,5 +21,19 @@ class AnkorTableRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getArr() {
+        return $this->createQueryBuilder('v')
+            ->leftJoin('v.phoneTable','phone')
+//            ->leftJoin('v.pattern','pattern')
+//            ->leftJoin('v.transparentImages','transparentImages')
+            ->leftJoin('v.productCategoryTable','category')
+            ->select('v, partial phone.{id,title}, partial category.{id, title}')
+            ->getQuery()
+//            ->setMaxResults(100)
+            ->getArrayResult();
+
+    }
+
 }
 

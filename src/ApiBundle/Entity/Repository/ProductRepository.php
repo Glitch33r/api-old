@@ -8,10 +8,21 @@ namespace ApiBundle\Entity\Repository;
  * repository methods below.
  */
 
-use Site\FrontendBundle\Services\FilterQueryHelper;
+//use ApiBundle\Services\FilterQueryHelper;
 
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function getArr() {
+        return $this->createQueryBuilder('q')
+            ->leftJoin('q.category', 'category')
+            ->leftJoin('q.phones', 'phones')
+            ->select('q, partial category.{id,title}, partial phones.{id,title}')
+            ->getQuery()
+            ->getArrayResult();
+    }
+
+
     public function exportGlassProductForGoogle()
     {
         return $this->createQueryBuilder('q')

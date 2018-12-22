@@ -8,10 +8,24 @@ namespace ApiBundle\Entity\Repository;
  * repository methods below.
  */
 use Doctrine\Common\Collections\ArrayCollection;
-use Site\FrontendBundle\Services\FilterQueryHelper;
+//use Site\FrontendBundle\Services\FilterQueryHelper;
 
 class CoverRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function getArr() {
+        return $this->createQueryBuilder('v')
+//            ->leftJoin('v.phone','phone')
+//            ->leftJoin('v.pattern','pattern')
+//            ->leftJoin('v.transparentImages','transparentImages')
+//            ->leftJoin('v.coverGalleryImages','cover_gallery_images')
+//            ->select('v, partial phone.{id,title}, partial pattern.{id, title}')
+            ->getQuery()
+//            ->setMaxResults(100)
+            ->getArrayResult();
+
+    }
+
     public function getByIdsForSearch($ids)
     {
         $query = $this->createQueryBuilder('q');

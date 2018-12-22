@@ -12,6 +12,22 @@ use ApiBundle\Entity\AnkorsInPageTable;
  */
 class AnkorsInPageTableRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getArr() {
+        return $this->createQueryBuilder('v')
+            ->leftJoin('v.phoneTable','phone')
+            ->leftJoin('v.productCategoryTable','category')
+            ->leftJoin('v.cover','cover')
+            ->leftJoin('v.ankorTable','ankor')
+            ->leftJoin('v.productTable','product')
+            ->select('v, partial phone.{id,title}, partial category.{id, title}, partial cover.{id, title}, partial ankor.{id, title}, partial product.{id, title}')
+            ->getQuery()
+//            ->setMaxResults(100)
+            ->getArrayResult();
+    }
+
+
+
+
     public function getElementsForPhone($slug, $count)
     {
         return $this->createQueryBuilder('q')

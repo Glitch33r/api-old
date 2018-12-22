@@ -10,4 +10,12 @@ namespace ApiBundle\Entity\Repository;
  */
 class PhoneBackgroundRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getArr() {
+        return $this->createQueryBuilder('v')
+            ->leftJoin('v.phone', 'phone')
+            ->leftJoin('v.transparentImages', 'transparentImages')
+            ->select('v, transparentImages, partial phone.{id, title}')
+            ->getQuery()
+            ->getArrayResult();
+    }
 }

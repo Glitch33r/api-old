@@ -12,7 +12,11 @@ class ProductCategoryRepository extends \Doctrine\ORM\EntityRepository
 {
 
     public function getArr() {
-        return $this->createQueryBuilder('v')->getQuery()->getArrayResult();
+        return $this->createQueryBuilder('ct')
+//            ->leftJoin('ct.products','pr')
+//            ->select('ct, partial pr.{id, title}')
+            ->getQuery()
+            ->getArrayResult();
     }
 
 

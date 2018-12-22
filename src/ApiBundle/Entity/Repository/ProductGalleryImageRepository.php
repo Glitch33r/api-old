@@ -12,6 +12,10 @@ class ProductGalleryImageRepository extends \Doctrine\ORM\EntityRepository
 {
 
     public function getArr() {
-        return $this->createQueryBuilder('v')->getQuery()->getArrayResult();
+        return $this->createQueryBuilder('v')
+            ->leftJoin('v.product', 'gallery')
+            ->select('v, partial gallery.{id, title}')
+            ->getQuery()
+            ->getArrayResult();
     }
 }

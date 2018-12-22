@@ -10,6 +10,20 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class PatternTagsRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function getArr() {
+        return $this->createQueryBuilder('v')
+            ->leftJoin('v.patterns','patterns')
+//            ->leftJoin('v.pattern','pattern')
+//            ->leftJoin('v.transparentImages','transparentImages')
+            ->leftJoin('v.products','products')
+            ->select('v, partial patterns.{id,title}, partial products.{id, title}')
+            ->getQuery()
+//            ->setMaxResults(100)
+            ->getArrayResult();
+
+    }
+
     public function getAllSortedByTitle()
     {
         $query = $this->createQueryBuilder('t')
